@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet/less" href="./css/swiper.less">
+    <link rel="stylesheet/less" href="./css/index.less">
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_485272_o8mf5r3rmpge3ik9.css">
+    <script src="./js/swiper.min.js"></script>
+    <script src="./js/less-2.5.3.min.js"></script>
+    <script src="./js/zepto.min.js"></script>
+    <script>
+        ~function () {
+            window.addEventListener('resize', computed, false);
+            computed();
+            function computed() {
+                var deviceW = document.documentElement.clientWidth;
+                if (deviceW > 750) return;
+                document.documentElement.style.fontSize = deviceW / 750 * 100 + 'px';
+            }
+        }();
+
+    </script>
+</head>
+<body>
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide one"  >
+            <img src="./img/1.gif" alt="">
+            <div class="box"></div>
+            <div class="resume">
+                <span>求职</span>
+                <span>简历</span>
+            </div>
+            <div class="pencil">
+                <img src="./img/2.png" alt="">
+            </div>
+
+        </div>
+        <div class="swiper-slide two" >
+            <div class="pic">
+                <div class="pic_1">
+                    <img src="./img/2.png" alt="">
+                </div>
+            </div>
+            <div class="name">
+                <h3>任立欣</h3>
+                <p>应聘职位：前端工程师</p>
+            </div>
+            <div class="info">
+                <ul>
+                    <li>
+                        <div>
+                            <img src="./img/3.png" alt="">
+                        </div>
+                        <span>学历：本科</span>
+                    </li>
+                    <li>
+                        <div>
+                            <img src="./img/4.png" alt="">
+                        </div>
+                        <span>专业：计算机</span>
+                    </li>
+                    <li>
+                        <div>
+                            <img src="./img/5.png" alt="">
+                        </div>
+                        <span>爱好：打篮球</span>
+                    </li>
+                    <li>
+                        <div>
+                            <img src="./img/6.png" alt="">
+                        </div>
+                        <span>户籍：河北省</span>
+                    </li>
+                    <li>
+                        <div>
+                            <img src="./img/7.png" alt="">
+                        </div>
+                        <span>出生日期：1993-09</span>
+                    </li>
+                </ul>
+                <div class="tree1">
+                    <img src="./img/9.png" alt="">
+                </div>
+                <div class="tree2">
+                    <img src="./img/8.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="swiper-slide three" >
+            <img src="./img/10.png" alt="">
+            <i class="iconfont icon-biaoqian1 biaoqian"></i>
+            <p></p>
+
+        </div>
+    </div>
+</div>
+<script>
+    let change = (ev)=> {
+        let $page1 = $('.swiper-container');
+        let index = ev.activeIndex;
+        let sideAry = ev.slides;
+        let startClient = null;
+        let moveClient = null;
+        let endClient = null;
+        console.log(1);
+        $page1.css('display', 'block');
+        $.each(sideAry, (n, item)=> {
+            item.id = n === index ? `page${n + 1}` : '';
+            if (item.id === 'page5') {
+                let $end = $(item).children('.end');
+                $(item).on('touchstart', (ev)=> {
+                    startClient = ev.changedTouches[0].clientY;
+
+                }).on('touchmove', (ev)=> {
+                    moveClient = ev.changedTouches[0];
+
+                }).on('touchend', (ev)=> {
+                    endClient = ev.changedTouches[0].clientY;
+                    if(startClient > endClient){
+                        let timer = setTimeout(()=> {
+                            timer = null;
+                            $end.html('');
+                        }, 2000);
+                        $end.html('没有更多内容了');
+                    }
+                });
+            }
+        })
+    }
+    var swiper = new Swiper('.swiper-container', {
+        height: window.innerHeight,//高度是百分百
+        direction: 'vertical',
+        onInit: function (ev) {
+            change(ev)
+        },
+        onTransitionEnd: function (ev) {
+            change(ev)
+        }
+    });
+</script>
+</body>
+</html>
